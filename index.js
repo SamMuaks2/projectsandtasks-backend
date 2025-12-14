@@ -143,8 +143,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/projects-
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('✅ MongoDB connected'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
@@ -159,7 +159,7 @@ app.use('/api/settings', require('./routes/settings'));
 // Error handling middleware (must be after all routes)
 app.use((err, req, res, next) => {
   // Log error for debugging
-  console.error('❌ Error:', err.stack);
+  console.error('Error:', err.stack);
   
   // Don't send error if response already started
   if (res.headersSent) {
@@ -175,7 +175,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, async () => {
-  console.log(`✅ Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
   
   // Test email configuration on startup
   const { testEmailConfiguration } = require('./utils/email');
@@ -185,7 +185,7 @@ const server = app.listen(PORT, async () => {
 // Socket.io for real-time features
 const io = require('socket.io')(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "https://projectsandtasks-frontend.vercel.app" || 'http://localhost:3000',
+    origin: process.env.CLIENT_URL || "https://gicprojects.com.ng" || 'http://localhost:3000',
     methods: ['GET', 'POST']
   }
 });
@@ -198,7 +198,7 @@ startScheduler();
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (reason, promise) => {
-  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
   // Don't exit the process in production
   if (process.env.NODE_ENV !== 'production') {
     process.exit(1);
