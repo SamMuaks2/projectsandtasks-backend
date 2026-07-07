@@ -10,7 +10,7 @@ module.exports = (io) => {
         return next(new Error('Authentication error'));
       }
 
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decoded.userId);
       
       if (!user || !user.isActive) {
